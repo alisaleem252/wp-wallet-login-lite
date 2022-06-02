@@ -82,8 +82,8 @@ class WalletConnect {
 				?>
 			</form>
 
-			Set the Webhook URL for Xumm 
-			<pre><?php echo admin_url('admin-ajax.php?action=xumm_connect_wallet')?></pre>
+			
+			
 		</div>
 	<?php }
 
@@ -137,22 +137,6 @@ class WalletConnect {
 			'portis_id_4', // id
 			'Portis ID', // title
 			array( $this, 'portis_id_4_callback' ), // callback
-			'wallet-connect-admin', // page
-			'wallet_connect_setting_section' // section
-		);
-
-		add_settings_field(
-			'xumm_id_5', // id
-			'Xumm API key', // title
-			array( $this, 'xumm_id_5_callback' ), // callback
-			'wallet-connect-admin', // page
-			'wallet_connect_setting_section' // section
-		);
-
-		add_settings_field(
-			'xumm_key_5', // id
-			'Xumm Secret Key', // title
-			array( $this, 'xumm_key_5_callback' ), // callback
 			'wallet-connect-admin', // page
 			'wallet_connect_setting_section' // section
 		);

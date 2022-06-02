@@ -48,6 +48,7 @@ class wpwlc_Page_lock {
 	public function add_meta_box_callback() {
         global $post;
         $selected_users = get_post_meta($post->ID,'wplmc_users_access',true);
+		$selected_users = is_array($selected_users) ? $selected_users : array();
         $limit_access = get_post_meta($post->ID,'wplmc_limit_access',true);
         echo '<p><input type="checkbox" value="1" '.($limit_access == '1' ? 'checked' : '').' name="wplmc_limit_access" /> Restrict Page Access</p>';
         echo '<div class="rwp-description" style="height: 200px;overflow: scroll;">' . $this->config['description'] . '';

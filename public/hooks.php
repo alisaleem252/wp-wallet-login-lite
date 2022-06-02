@@ -241,59 +241,55 @@ function wpwlc_restrict_user(){
  }
 
 
- add_action('wp_ajax_xumm_connect_wallet','xumm_connect_wallet_ajax_cb');
- add_action('wp_ajax_nopriv_xumm_connect_wallet','xumm_connect_wallet_ajax_cb');
- function xumm_connect_wallet_ajax_cb(){
-     global $wpdb;
-    // ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-     
-    $entityBody = file_get_contents('php://input');
-    $userToken = json_decode($entityBody,true);
-    $uuid = $_POST['uuid'];
-    $auth = $_POST['auth'];
-    
-    if(isset($userToken['userToken']['user_token'])){
-        update_option('xumm_pending_login',$entityBody);
-    }
-    
-//die(get_option('xumm_pending_login'));
-    if(isset($_REQUEST['auth']) && isset($_REQUEST['uuid'])){
-        $entityBody = get_option('xumm_pending_login');
-        $userToken = json_decode($entityBody,true);
-        if($uuid !== $userToken['payloadResponse']['payload_uuidv4']){
-            die('NULLID');
-        }
-        $userToken = $userToken['userToken']['user_token'];
-        
-        $usermeta = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '$userToken' AND b.meta_key LIKE 'wpwlc_nonce'  AND a.user_id LIKE b.user_id");
-         
-            if (isset($usermeta[0])) {
-                $user_id =  $usermeta[0]->user_id;
-                xumm_login_the_user_by_id($user_id);
-                die($user_id);
-            } else {
-            /**
-             * Create this new user
-             */
-            $user_id = wp_create_user( $userToken, wp_generate_password() );
-            update_user_meta($user_id,'wpwlc_address',$userToken);
-            update_user_meta($user_id,'wpwlc_nonce',$userToken);
-            xumm_login_the_user_by_id($user_id);
-            die($user_id);
-            }
-        
-        
-    }
-    die('NULL');
+ 
 
- }
- function xumm_login_the_user_by_id($user_id){
-     /**Login the user */
-        clean_user_cache( $user_id );
-        wp_clear_auth_cookie();
-        wp_set_current_user( $user_id );
-        wp_set_auth_cookie( $user_id, false );
-        update_user_caches( get_user_by('ID',$user_id) );
-        //wp_redirect(site_url());
-        return;
- }
+
+
+    add_action('login_form', 'also_add_connect_wallet_model_inlogin_registformCBF');
+    add_action('register_form', 'also_add_connect_wallet_model_inlogin_registformCBF');
+    function also_add_connect_wallet_model_inlogin_registformCBF(){
+        $wallet_connect_options = get_option( 'wallet_connect_option_name' ); // Array of All Options
+        $fortmatic_rpcurl_0 = $wallet_connect_options['fortmatic_rpcurl_0']; // Fortmatic rpcURL
+        $fortmatic_chainid_1 = $wallet_connect_options['fortmatic_chainid_1']; // Fortmatic chainID
+        $fortmatic_key_2 = $wallet_connect_options['fortmatic_key_2']; // Fortmatic Key
+        $wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
+        $portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
+    
+        
+         ?>
+         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <!-- <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script> -->
+    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.5/dist/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+    <!-- <script type="text/javascript" src="https://www.unpkg.com/walletlink@2.5.0/dist/provider/Web3Provider.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fortmatic/dist/fortmatic.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@toruslabs/torus-embed"></script>
+    <script type="text/javascript" src="https://unpkg.com/@portis/web3@4.0.7/umd/index.js"></script>
+    
+
+        <script>
+
+            var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
+            var fortmatic_chainid_1 = "<?php echo $fortmatic_chainid_1 ? $fortmatic_chainid_1 : '137' ?>";
+            var fortmatic_key_2 = "<?php echo $fortmatic_key_2 ?  $fortmatic_key_2 : 'pk_test_34280F77D49163DC' ?>"; 
+            var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
+            var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
+            </script>
+         <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
+        <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
+            <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script>
+            <?php
+      echo do_shortcode('[connect_wallet]');
+       
+    
+    } // function also_add_connect_wallet_model_inloginformCBF
+
+
+
+    add_filter('wp_authenticate_user','authenticate_also_add_connect_wallet_model_inlogin_registformCBF');
+    function authenticate_also_add_connect_wallet_model_inlogin_registformCBF($user){
+
+        return $user;
+    }
+
