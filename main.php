@@ -18,3 +18,15 @@ require_once wpwlc_PATH."/admin/admin.php";
 require_once wpwlc_PATH."/public/hooks.php";
 //require_once wpwlc_PATH."/public/shortcode.php";
 require_once wpwlc_PATH."/admin/page.php";
+
+
+
+    if(function_exists("elementor_load_plugin_textdomain")){
+
+        add_action( 'elementor/widgets/register', 'register_connect_wallet_custom_widgetsCBF' );
+        function register_connect_wallet_custom_widgetsCBF( $widgets_manager ) {
+            require_once( __DIR__ . '/public/elementor_element.php' );
+            $widgets_manager->register( new \Connect_Wallet_Widget() );  
+
+        }
+    }
