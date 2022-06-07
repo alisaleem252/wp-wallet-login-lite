@@ -287,9 +287,144 @@ function wpwlc_restrict_user(){
 
 
 
-    add_filter('wp_authenticate_user','authenticate_also_add_connect_wallet_model_inlogin_registformCBF');
+    //add_filter('wp_authenticate_user','authenticate_also_add_connect_wallet_model_inlogin_registformCBF');
     function authenticate_also_add_connect_wallet_model_inlogin_registformCBF($user){
 
         return $user;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!class_exists("WPBakeryShortCode"))
+return;
+class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
+
+  function __construct() {
+    add_action( 'init', array( $this, 'create_shortcode' ), 999 );            
+    add_shortcode( 'connect_wallet', array( $this, 'render_shortcode' ) );
+  }        
+
+  public function create_shortcode() {
+    if ( !defined( 'WPB_VC_VERSION' ) ) {
+      return;
+    }  
+   
+    
+
+    vc_map( array(
+      'name'          => __('Connect Wallet', 'wpwalletlogincustom'),
+      'base'          => 'connect_wallet',
+      'description'  	=> __( 'Connect Wallet','wpwalletlogincustom'),
+      //'category'      => __( 'msl_txtdmn Modules', 'msl_txtdmn'),                
+      'params' => array(
+        array(
+          'type' => 'colorpicker',
+          'heading' => esc_html__('Select Button Background Color','wpwalletlogincustom'),
+          'param_name' => 'Button_Background_Color',
+        ),
+
+        array(
+            'type' => 'colorpicker',
+            'heading' => esc_html__('Select Button Text Color','wpwalletlogincustom'),
+            'param_name' => 'Button_Text_Color',
+          ),
+      ),
+    ));             
+
+    
+
+  }
+
+  public function render_shortcode( $atts, $content, $tag ) {
+    $content            = wpb_js_remove_wpautop($content, true);
+            
+    if(is_admin())
+      return;
+
+    
+      $wallet_connect_options = get_option( 'wallet_connect_option_name' ); // Array of All Options
+      $fortmatic_rpcurl_0 = $wallet_connect_options['fortmatic_rpcurl_0']; // Fortmatic rpcURL
+      $fortmatic_chainid_1 = $wallet_connect_options['fortmatic_chainid_1']; // Fortmatic chainID
+      $fortmatic_key_2 = $wallet_connect_options['fortmatic_key_2']; // Fortmatic Key
+      $wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
+      $portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
+  
+      
+       ?>
+       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <!-- <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script> -->
+  <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.5/dist/index.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+  <!-- <script type="text/javascript" src="https://www.unpkg.com/walletlink@2.5.0/dist/provider/Web3Provider.js"></script> -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fortmatic/dist/fortmatic.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/@toruslabs/torus-embed"></script>
+  <script type="text/javascript" src="https://unpkg.com/@portis/web3@4.0.7/umd/index.js"></script>
+  
+
+      <script>
+
+          var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
+          var fortmatic_chainid_1 = "<?php echo $fortmatic_chainid_1 ? $fortmatic_chainid_1 : '137' ?>";
+          var fortmatic_key_2 = "<?php echo $fortmatic_key_2 ?  $fortmatic_key_2 : 'pk_test_34280F77D49163DC' ?>"; 
+          var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
+          var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
+          </script>
+       <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
+      <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
+          <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script>
+          <?php
+
+        $Button_Background_Color = isset($atts['Button_Background_Color']) ? $atts['Button_Background_Color'] : 'green';
+        $Button_Text_Color = isset($atts['Button_Text_Color']) ? $atts['Button_Text_Color'] : 'white';
+
+    ob_start();
+    ?>
+    
+    <div style="margin: 0 auto;max-width: 600px;margin-top:100px;">
+        <div style="text-align:center;word-wrap:break-word;">
+            <?php if(is_user_logged_in()) {
+                $user = wp_get_current_user();
+                $address = get_user_meta($user->ID,'wpwlc_address',true);
+                
+                ?>
+                <div id="loggedIn" class="user-login-msg">
+                    Successful authentication for address:<br><span id="ethAddress"><?php echo $address ?></span>
+                    <br><br>
+                    You can set a public name for this account:<br>
+                    <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
+                </div>
+            <?php } //if(is_user_logged_in()) {
+                else{?>  
+                <button type="button" onclick="userLoginOut()" id="buttonText" class="button" style="background-color:<?php echo $Button_Background_Color ?>;color:<?php echo $Button_Text_Color ?>;">Connect Wallet</button><div><p>&nbsp;</p></div>
+            <?php } // ELSE  of   if(is_user_logged_in()) {?>
+        </div>
+    </div>
+    
+     <?php
+
+     $ob_str=ob_get_contents();
+     ob_end_clean();
+     return $ob_str;
+
+
+  } // functi
+
+} // class
+
+new WPBakeryShortCodeConnectWallet();

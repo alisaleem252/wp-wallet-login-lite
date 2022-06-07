@@ -172,13 +172,7 @@ class WalletConnect {
 			$sanitary_values['portis_id_4'] = sanitize_text_field( $input['portis_id_4'] );
 		}
 
-		if ( isset( $input['xumm_id_5'] ) ) {
-			$sanitary_values['xumm_id_5'] = sanitize_text_field( $input['xumm_id_5'] );
-		}
-
-		if ( isset( $input['xumm_key_5'] ) ) {
-			$sanitary_values['xumm_key_5'] = sanitize_text_field( $input['xumm_key_5'] );
-		}
+	
 
 		if ( isset( $input['button_classes_5'] ) ) {
 			$sanitary_values['button_classes_5'] = sanitize_text_field( $input['button_classes_5'] );
@@ -223,20 +217,6 @@ class WalletConnect {
 		printf(
 			'<input class="regular-text" type="text" name="wallet_connect_option_name[portis_id_4]" id="portis_id_4" value="%s">',
 			isset( $this->wallet_connect_options['portis_id_4'] ) ? esc_attr( $this->wallet_connect_options['portis_id_4']) : ''
-		);
-	}
-
-	public function xumm_id_5_callback() {
-		printf(
-			'<input class="regular-text" type="text" name="wallet_connect_option_name[xumm_id_5]" id="xumm_id_5" value="%s">',
-			isset( $this->wallet_connect_options['xumm_id_5'] ) ? esc_attr( $this->wallet_connect_options['xumm_id_5']) : ''
-		);
-	}
-	
-	public function xumm_key_5_callback() {
-		printf(
-			'<input class="regular-text" type="text" name="wallet_connect_option_name[xumm_key_5]" id="xumm_key_5" value="%s">',
-			isset( $this->wallet_connect_options['xumm_key_5'] ) ? esc_attr( $this->wallet_connect_options['xumm_key_5']) : ''
 		);
 	}
 
