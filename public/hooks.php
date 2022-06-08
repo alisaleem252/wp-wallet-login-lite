@@ -44,7 +44,9 @@ function wpwlc_restrict_user(){
     require_once wpwlc_PATH."/lib/Elliptic/Curves.php";
     //require_once wpwlc_PATH."/lib/JWT/jwt_helper.php";
     //$GLOBALS['JWT_secret'] = '4Eac8AS2cw84easd65araADX';
+    $userObj = wp_get_current_user();
 
+    
     $data = json_decode(file_get_contents("php://input"));
     $request = $data->request;
 
@@ -72,7 +74,9 @@ function wpwlc_restrict_user(){
         if (isset($usermeta[0])) {
             $nonce = $usermeta[0]->meta_value;
             // If user exists, return message to sign
-            echo("Sign this message to validate that you are the owner of the account. Random string: " . $nonce);
+            echo ("Sign this message to validate that you are the owner of the account. Random string: " . $nonce);
+            update_user_meta($userObj->ID,'wpwlc_address',$address);
+            update_user_meta($userObj->ID,'wpwlc_nonce',$nonce);
         }
         else {
             // If user doesn't exist, register new user with generated nonce, then return message to sign
