@@ -67,10 +67,6 @@ function wpwlc_restrict_user(){
         // $nonce = $stmt->fetchColumn();
         $usermeta = $wpdb->get_results("SELECT b.meta_value FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '$address' AND b.meta_key LIKE 'wpwlc_nonce'  AND a.user_id LIKE b.user_id");
         
-
-
-            
-
         if (isset($usermeta[0])) {
             $nonce = $usermeta[0]->meta_value;
             // If user exists, return message to sign
