@@ -16,7 +16,7 @@ define('wpwlc_PATH', dirname(__FILE__));
 
 require_once wpwlc_PATH."/admin/admin.php";
 require_once wpwlc_PATH."/public/hooks.php";
-//require_once wpwlc_PATH."/public/shortcode.php";
+require_once wpwlc_PATH."/public/shortcode.php";
 require_once wpwlc_PATH."/admin/page.php";
 
 
