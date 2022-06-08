@@ -316,7 +316,7 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
 
   function __construct() {
     add_action( 'init', array( $this, 'create_shortcode' ), 999 );            
-    add_shortcode( 'connect_wallet', array( $this, 'render_shortcode' ) );
+    add_shortcode( 'wpbakery_connect_wallet', array( $this, 'render_shortcode' ) );
   }        
 
   public function create_shortcode() {
@@ -328,7 +328,7 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
 
     vc_map( array(
       'name'          => __('Connect Wallet', 'wpwalletlogincustom'),
-      'base'          => 'connect_wallet',
+      'base'          => 'wpbakery_connect_wallet',
       'description'  	=> __( 'Connect Wallet','wpwalletlogincustom'),
       //'category'      => __( 'msl_txtdmn Modules', 'msl_txtdmn'),                
       'params' => array(

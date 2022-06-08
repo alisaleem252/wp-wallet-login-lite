@@ -199,13 +199,8 @@ if ( ! defined( 'ABSPATH' ) )
     </div>
     
      <?php
-
-    //  $ob_str=ob_get_contents();
-    //  ob_end_clean();
-    //  return $ob_str;
   
-      }						
-  
+      }
   
   }
 ?>
