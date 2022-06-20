@@ -44,7 +44,9 @@ function wpwlc_restrict_user(){
     require_once wpwlc_PATH."/lib/Elliptic/Curves.php";
     //require_once wpwlc_PATH."/lib/JWT/jwt_helper.php";
     //$GLOBALS['JWT_secret'] = '4Eac8AS2cw84easd65araADX';
+    $userObj = wp_get_current_user();
 
+    
     $data = json_decode(file_get_contents("php://input"));
     $request = $data->request;
 
@@ -65,14 +67,12 @@ function wpwlc_restrict_user(){
         // $nonce = $stmt->fetchColumn();
         $usermeta = $wpdb->get_results("SELECT b.meta_value FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '$address' AND b.meta_key LIKE 'wpwlc_nonce'  AND a.user_id LIKE b.user_id");
         
-
-
-            
-
         if (isset($usermeta[0])) {
             $nonce = $usermeta[0]->meta_value;
             // If user exists, return message to sign
-            echo("Sign this message to validate that you are the owner of the account. Random string: " . $nonce);
+            echo ("Sign this message to validate that you are the owner of the account. Random string: " . $nonce);
+            update_user_meta($userObj->ID,'wpwlc_address',$address);
+            update_user_meta($userObj->ID,'wpwlc_nonce',$nonce);
         }
         else {
             // If user doesn't exist, register new user with generated nonce, then return message to sign
@@ -316,7 +316,7 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
 
   function __construct() {
     add_action( 'init', array( $this, 'create_shortcode' ), 999 );            
-    add_shortcode( 'connect_wallet', array( $this, 'render_shortcode' ) );
+    add_shortcode( 'wpbakery_connect_wallet', array( $this, 'render_shortcode' ) );
   }        
 
   public function create_shortcode() {
@@ -328,7 +328,7 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
 
     vc_map( array(
       'name'          => __('Connect Wallet', 'wpwalletlogincustom'),
-      'base'          => 'connect_wallet',
+      'base'          => 'wpbakery_connect_wallet',
       'description'  	=> __( 'Connect Wallet','wpwalletlogincustom'),
       //'category'      => __( 'msl_txtdmn Modules', 'msl_txtdmn'),                
       'params' => array(
