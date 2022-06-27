@@ -157,17 +157,7 @@ if ( ! defined( 'ABSPATH' ) )
       
           //ob_start();
            ?>
-            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-            <!-- <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script> -->
-            <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.5/dist/index.js"></script>
-            <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
-            <!-- <script type="text/javascript" src="https://www.unpkg.com/walletlink@2.5.0/dist/provider/Web3Provider.js"></script> -->
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fortmatic/dist/fortmatic.js"></script>
-            <script type="text/javascript" src="https://unpkg.com/@toruslabs/torus-embed"></script>
-            <script type="text/javascript" src="https://unpkg.com/@portis/web3@4.0.7/umd/index.js"></script>
-      
-    
+           
         <script>
               var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
               var fortmatic_chainid_1 = "<?php echo $fortmatic_chainid_1 ? $fortmatic_chainid_1 : '137' ?>";
@@ -175,9 +165,9 @@ if ( ! defined( 'ABSPATH' ) )
               var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
               var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
         </script>
-            <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
+            <!--script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
             <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
-              <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script>
+              <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script-->
     <div style="margin: 0 auto;max-width: 600px;margin-top:100px;">
         <div style="text-align:center;word-wrap:break-word;">
             <?php if(is_user_logged_in()) {
@@ -186,9 +176,9 @@ if ( ! defined( 'ABSPATH' ) )
                 
                 ?>
                 <div id="loggedIn" class="user-login-msg">
-                    Successful authentication for address:<br><span id="ethAddress"><?php echo $address ?></span>
+                <?php esc_html_e("Successful authentication for address:",'wpwalletlogincustom');?><br><span id="ethAddress"><?php echo $address ?></span>
                     <br><br>
-                    You can set a public name for this account:<br>
+                    <?php esc_html_e("You can set a public name for this account:",'wpwalletlogincustom');?><br>
                     <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
                 </div>
             <?php } //if(is_user_logged_in()) {

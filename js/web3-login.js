@@ -7,8 +7,9 @@ let userLoginData = {
   config: { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
 }
 
+
 if (typeof(backendPath) == 'undefined') {
-  var backendPath = ajaxurl;
+  //var backendPath = ajaxurl;
 }
 
 
