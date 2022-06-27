@@ -38,8 +38,8 @@ class wpwlc_Page_lock {
 	}
 
 	public function save_post( $post_id ) {
-        $wplmc_users_access =  isset( $_POST[ 'wplmc_users_access' ] ) ? $_POST[ 'wplmc_users_access' ] : array();
-		$wplmc_limit_access =  isset( $_POST[ 'wplmc_limit_access' ] ) ? $_POST[ 'wplmc_limit_access' ] : 0;
+        $wplmc_users_access =  isset( $_POST[ 'wplmc_users_access' ] ) ? sanitize_text_field($_POST[ 'wplmc_users_access' ]) : array();
+		$wplmc_limit_access =  isset( $_POST[ 'wplmc_limit_access' ] ) ? sanitize_text_field($_POST[ 'wplmc_limit_access' ]) : 0;
 		update_post_meta( $post_id, 'wplmc_users_access', $wplmc_users_access);
         update_post_meta( $post_id, 'wplmc_limit_access', $wplmc_limit_access);
 					
