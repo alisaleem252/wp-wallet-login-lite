@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: WP Wallet Login Custom
+ * Plugin Name: WP Wallet Login Custom Lite
  * Plugin URI: https://gigsix.com/
  * Description: WP Wallet Login Custom, Login with Crypto Wallets.
  * Author: wpfixit
- * Version: 1.5.0
+ * Version: 1.5.1
  * Author URI: https://gigsix.com
  * Text Domain: wpwalletlogincustom
  * Domain Path: /languages
@@ -30,3 +30,25 @@ require_once wpwlc_PATH."/admin/page.php";
 
         }
     }
+
+
+
+    add_action( 'login_enqueue_scripts', 'wpwlc_enqueue_scriptsCBF' );
+	add_action('wp_enqueue_scripts', 'wpwlc_enqueue_scriptsCBF');
+	function wpwlc_enqueue_scriptsCBF(){
+		wp_enqueue_script('web3-axios.min-JS', plugins_url('js/axios.min.js', __FILE__ ),array('jquery'));
+		wp_enqueue_script('web3-web3.min-JS', plugins_url('js/web3.min.js', __FILE__ ),array('jquery'));
+		wp_enqueue_script('web3-web3modal-JS', plugins_url('js/web3modal.js', __FILE__ ),array('jquery'));
+		wp_enqueue_script('web3-portis-JS', plugins_url('js/portis.js', __FILE__ ),array('jquery'));
+		wp_enqueue_script('web3-torus.min-JS', plugins_url('js/torus.min.js', __FILE__ ),array('jquery'));
+		wp_enqueue_script('web3-fortmatic-JS', plugins_url('js/fortmatic.js', __FILE__ ),array('jquery'));
+		wp_enqueue_script('web3-walletconnect.min-JS', plugins_url('js/walletconnect.min.js', __FILE__ ),array('jquery'));
+
+       
+		wp_enqueue_script('web3-login-custom-JS', plugins_url('js/web3-login.js', __FILE__ ),array('jquery'));
+		wp_enqueue_script('web3-modal-custom-JS', plugins_url('js/web3-modal.js', __FILE__ ),array('jquery'));
+		//wp_enqueue_style('cfrd-salient-CSS', plugins_url('css/salient-wpbakery-addons-basic.css', __FILE__ ));
+
+        
+		
+	} // function cfrd__enqueue_scriptsCBF() 

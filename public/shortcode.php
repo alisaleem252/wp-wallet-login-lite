@@ -15,17 +15,16 @@ wp_enqueue_script("jquery");
             <?php if(is_user_logged_in()) {
                 $user = wp_get_current_user();
                 $address = get_user_meta($user->ID,'wpwlc_address',true);
-                
                 ?>
                 <div id="loggedIn" class="user-login-msg">
-                    Successful authentication for address:<br><span id="ethAddress"><?php echo $address ?></span>
+                <?php esc_html_e("Successful authentication for address:",'wpwalletlogincustom');?> <br><span id="ethAddress"><?php echo $address ?></span>
                     <br><br>
-                    You can set a public name for this account:<br>
+                <?php esc_html_e("You can set a public name for this account:",'wpwalletlogincustom');?><br>
                     <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
                 </div>
             <?php } //if(is_user_logged_in()) {
                 else{?>  
-                <button type="button" onclick="userLoginOut()" id="buttonText" class="<?php echo $button_classes ?> button button-secondary">Connect Wallet</button><div><p>&nbsp;</p></div>
+                <button type="button" onclick="userLoginOut()" id="buttonText" class="<?php echo $button_classes ?> button button-secondary"><?php esc_html_e("Connect Wallet",'wpwalletlogincustom');?></button><div><p>&nbsp;</p></div>
             <?php } // ELSE  of   if(is_user_logged_in()) {?>
         </div>
     </div>

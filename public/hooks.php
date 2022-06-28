@@ -70,7 +70,8 @@ function wpwlc_restrict_user(){
         if (isset($usermeta[0])) {
             $nonce = $usermeta[0]->meta_value;
             // If user exists, return message to sign
-            echo ("Sign this message to validate that you are the owner of the account. Random string: " . $nonce);
+
+            printf("Sign this message to validate that you are the owner of the account. Random string: %s", $nonce);
             update_user_meta($userObj->ID,'wpwlc_address',$address);
             update_user_meta($userObj->ID,'wpwlc_nonce',$nonce);
         }
@@ -89,9 +90,9 @@ function wpwlc_restrict_user(){
             //$stmt->bindParam(2, $nonce);
 
             if (!is_wp_error( $user_id ) ) {
-            echo ("Sign this message to validate that you are the owner of the account. Random string: " . $nonce);
+                printf("Sign this message to validate that you are the owner of the account. Random string: %s", $nonce);
             } else {
-            echo "Error" . $user_id->get_error_message();
+                printf("Error",$user_id->get_error_message());
             }
         }
 
@@ -107,7 +108,8 @@ function wpwlc_restrict_user(){
         if(isset($usermeta[0])) {
             
             $nonce = $usermeta[0]->meta_value;
-            $message = "Sign this message to validate that you are the owner of the account. Random string: " . $nonce;
+            printf("Sign this message to validate that you are the owner of the account. Random string: %s", $nonce);
+
         }
 
         // Check if the message was signed with the same private key to which the public address belongs
@@ -162,9 +164,9 @@ function wpwlc_restrict_user(){
              update_user_caches( get_user_by('ID',$user_id) );
 
 
-            echo(json_encode(["Success", $publicName]));
+            echo (json_encode(["Success", $publicName]));
         } else {
-            echo "Fail";
+            esc_html_e("Fail",'wpwalletlogincustom');
         }
         exit;
     }
@@ -176,7 +178,8 @@ function wpwlc_restrict_user(){
     // Check if the user is logged in
     if(!is_user_logged_in()){
         //$JWT = JWT::decode($data->JWT, $GLOBALS['JWT_secret']); 
-        echo 'Authentication error'; exit; 
+        esc_html_e( 'Authentication error','wpwalletlogincustom'); 
+        exit; 
     }
     
 
@@ -187,7 +190,7 @@ function wpwlc_restrict_user(){
     //$stmt->bindParam(1, $publicName);
         update_user_meta($user_id,'nickname',true);
     if (isset($usermeta[0])) {
-        echo "Public name for $address updated to $publicName";
+        printf("Public name for %s updated to %s ",$address,$publicName);
     }
 
 
@@ -201,17 +204,9 @@ function wpwlc_restrict_user(){
  add_action('wp_head','wpwlc_wp_head');
  function wpwlc_wp_head(){
      ?>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <!-- <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script> -->
-    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.5/dist/index.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
-    <!-- <script type="text/javascript" src="https://www.unpkg.com/walletlink@2.5.0/dist/provider/Web3Provider.js"></script> -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fortmatic/dist/fortmatic.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@toruslabs/torus-embed"></script>
-    <script type="text/javascript" src="https://unpkg.com/@portis/web3@4.0.7/umd/index.js"></script>
-    
-
+    <script>			
+        var ajaxurl = "<?php echo admin_url('admin-ajax.php' )?>";
+    </script>
     
     <?php
  }
@@ -235,8 +230,7 @@ function wpwlc_restrict_user(){
         var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
         </script>
      <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
-    <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
-		<script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script>
+    
     <?php
  }
 
@@ -257,17 +251,6 @@ function wpwlc_restrict_user(){
     
         
          ?>
-         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <!-- <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script> -->
-    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.5/dist/index.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
-    <!-- <script type="text/javascript" src="https://www.unpkg.com/walletlink@2.5.0/dist/provider/Web3Provider.js"></script> -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fortmatic/dist/fortmatic.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@toruslabs/torus-embed"></script>
-    <script type="text/javascript" src="https://unpkg.com/@portis/web3@4.0.7/umd/index.js"></script>
-    
-
         <script>
 
             var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
@@ -277,29 +260,12 @@ function wpwlc_restrict_user(){
             var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
             </script>
          <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
-        <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
-            <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script>
+        
             <?php
       echo do_shortcode('[connect_wallet]');
        
     
     } // function also_add_connect_wallet_model_inloginformCBF
-
-
-
-    //add_filter('wp_authenticate_user','authenticate_also_add_connect_wallet_model_inlogin_registformCBF');
-    function authenticate_also_add_connect_wallet_model_inlogin_registformCBF($user){
-
-        return $user;
-    }
-
-
-
-
-
-
-
-
 
 
 
@@ -335,13 +301,13 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
         array(
           'type' => 'colorpicker',
           'heading' => esc_html__('Select Button Background Color','wpwalletlogincustom'),
-          'param_name' => 'Button_Background_Color',
+          'param_name' => 'button_background_color',
         ),
 
         array(
             'type' => 'colorpicker',
             'heading' => esc_html__('Select Button Text Color','wpwalletlogincustom'),
-            'param_name' => 'Button_Text_Color',
+            'param_name' => 'button_text_color',
           ),
       ),
     ));             
@@ -366,16 +332,7 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
   
       
        ?>
-       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-  <!-- <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script> -->
-  <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.5/dist/index.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
-  <!-- <script type="text/javascript" src="https://www.unpkg.com/walletlink@2.5.0/dist/provider/Web3Provider.js"></script> -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fortmatic/dist/fortmatic.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/@toruslabs/torus-embed"></script>
-  <script type="text/javascript" src="https://unpkg.com/@portis/web3@4.0.7/umd/index.js"></script>
-  
+      
 
       <script>
 
@@ -385,13 +342,10 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
           var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
           var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
           </script>
-       <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
-      <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
-          <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script>
           <?php
 
-        $Button_Background_Color = isset($atts['Button_Background_Color']) ? $atts['Button_Background_Color'] : 'green';
-        $Button_Text_Color = isset($atts['Button_Text_Color']) ? $atts['Button_Text_Color'] : 'white';
+        $Button_Background_Color = isset($atts['button_background_color']) ? $atts['button_background_color'] : 'green';
+        $Button_Text_Color = isset($atts['button_text_color']) ? $atts['button_text_color'] : 'white';
 
     ob_start();
     ?>
@@ -404,9 +358,9 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
                 
                 ?>
                 <div id="loggedIn" class="user-login-msg">
-                    Successful authentication for address:<br><span id="ethAddress"><?php echo $address ?></span>
+                <?php esc_html_e("Successful authentication for address:",'wpwalletlogincustom');?><br><span id="ethAddress"><?php echo $address ?></span>
                     <br><br>
-                    You can set a public name for this account:<br>
+                    <?php esc_html_e("You can set a public name for this account:",'wpwalletlogincustom');?><br>
                     <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
                 </div>
             <?php } //if(is_user_logged_in()) {
