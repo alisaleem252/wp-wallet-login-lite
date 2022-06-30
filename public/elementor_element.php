@@ -155,7 +155,6 @@ if ( ! defined( 'ABSPATH' ) )
           $wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
           $portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
       
-          //ob_start();
            ?>
            
         <script>
@@ -165,9 +164,8 @@ if ( ! defined( 'ABSPATH' ) )
               var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
               var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
         </script>
-            <!--script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
-            <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
-              <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script-->
+           
+           
     <div style="margin: 0 auto;max-width: 600px;margin-top:100px;">
         <div style="text-align:center;word-wrap:break-word;">
             <?php if(is_user_logged_in()) {
