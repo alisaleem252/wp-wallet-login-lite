@@ -19,9 +19,9 @@ https://go.elementor.com/yt-admin-plugins/; its custom widget/ element for our p
 = 1.5.2 =
 * readme file updated.
 * plugin version updated.
-* un-necessory commented code removed
+* un-necessory/ commented code removed
 * apply esc_*() on missing strings
-
+* use inline scripting function
 
 = 1.5.1 =
 * readme file created.

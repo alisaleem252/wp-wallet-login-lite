@@ -65,7 +65,7 @@ function wpwlc_restrict_user(){
         // $stmt->bindParam(1, $address);
         // $stmt->execute();
         // $nonce = $stmt->fetchColumn();
-        $usermeta = $wpdb->get_results("SELECT b.meta_value FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '$address' AND b.meta_key LIKE 'wpwlc_nonce'  AND a.user_id LIKE b.user_id");
+        $usermeta = $wpdb->get_results($wpdb->prepare("SELECT b.meta_value FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '%s' AND b.meta_key LIKE 'wpwlc_nonce'  AND a.user_id LIKE b.user_id",$address));
         
         if (isset($usermeta[0])) {
             $nonce = $usermeta[0]->meta_value;
@@ -104,7 +104,7 @@ function wpwlc_restrict_user(){
         $signature = $data->signature;
 
         // Prepared statement to protect against SQL injections
-        $usermeta = $wpdb->get_results("SELECT b.meta_value FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '$address' AND b.meta_key LIKE 'wpwlc_nonce' AND a.user_id LIKE b.user_id");
+        $usermeta = $wpdb->get_results($wpdb->prepare("SELECT b.meta_value FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '%s' AND b.meta_key LIKE 'wpwlc_nonce' AND a.user_id LIKE b.user_id",$address));
         if(isset($usermeta[0])) {
             
             $nonce = $usermeta[0]->meta_value;
@@ -139,7 +139,7 @@ function wpwlc_restrict_user(){
            // $stmt->bindParam(1, $address);
            // $stmt->execute();
            // $publicName = $stmt->fetchColumn();
-            $usermeta = $wpdb->get_results("SELECT b.* FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '$address' AND b.meta_key LIKE 'nickname' AND a.user_id LIKE b.user_id");    
+            $usermeta = $wpdb->get_results($wpdb->prepare("SELECT b.* FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '%s' AND b.meta_key LIKE 'nickname' AND a.user_id LIKE b.user_id",$address));    
             
             $user_id = $usermeta[0]->user_id;
             $publicName = $usermeta[0]->meta_value;
@@ -184,7 +184,7 @@ function wpwlc_restrict_user(){
     
 
     // Prepared statement to protect against SQL injections
-    $usermeta = $wpdb->get_results("SELECT b.* FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '$address' AND b.meta_key LIKE 'nickname' AND a.user_id LIKE b.user_id");                
+    $usermeta = $wpdb->get_results($wpdb->prepare("SELECT b.* FROM `".$wpdb->prefix."usermeta` as a, `".$wpdb->prefix."usermeta` as b  WHERE a.meta_key LIKE 'wpwlc_address' AND a.meta_value LIKE '%s' AND b.meta_key LIKE 'nickname' AND a.user_id LIKE b.user_id",$address));                
     $user_id = $usermeta[0]->user_id;
     //$stmt = $conn->prepare("UPDATE $tablename SET publicName = ? WHERE address = '".$address."'");
     //$stmt->bindParam(1, $publicName);
@@ -201,70 +201,12 @@ function wpwlc_restrict_user(){
  }
 
 
- add_action('wp_head','wpwlc_wp_head');
- function wpwlc_wp_head(){
-     ?>
-    <script>			
-        var ajaxurl = "<?php echo admin_url('admin-ajax.php' )?>";
-    </script>
-    
-    <?php
- }
-
- add_action('wp_footer','wpwlc_wp_footer');
- function wpwlc_wp_footer(){
-    $wallet_connect_options = get_option( 'wallet_connect_option_name' ); // Array of All Options
-    $fortmatic_rpcurl_0 = $wallet_connect_options['fortmatic_rpcurl_0']; // Fortmatic rpcURL
-    $fortmatic_chainid_1 = $wallet_connect_options['fortmatic_chainid_1']; // Fortmatic chainID
-    $fortmatic_key_2 = $wallet_connect_options['fortmatic_key_2']; // Fortmatic Key
-    $wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
-    $portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
-
-    
-     ?>
-    <script>
-        var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
-        var fortmatic_chainid_1 = "<?php echo $fortmatic_chainid_1 ? $fortmatic_chainid_1 : '137' ?>";
-        var fortmatic_key_2 = "<?php echo $fortmatic_key_2 ?  $fortmatic_key_2 : 'pk_test_34280F77D49163DC' ?>"; 
-        var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
-        var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
-        </script>
-     <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
-    
-    <?php
- }
-
-
- 
-
-
-
     add_action('login_form', 'also_add_connect_wallet_model_inlogin_registformCBF');
     add_action('register_form', 'also_add_connect_wallet_model_inlogin_registformCBF');
     function also_add_connect_wallet_model_inlogin_registformCBF(){
-        $wallet_connect_options = get_option( 'wallet_connect_option_name' ); // Array of All Options
-        $fortmatic_rpcurl_0 = $wallet_connect_options['fortmatic_rpcurl_0']; // Fortmatic rpcURL
-        $fortmatic_chainid_1 = $wallet_connect_options['fortmatic_chainid_1']; // Fortmatic chainID
-        $fortmatic_key_2 = $wallet_connect_options['fortmatic_key_2']; // Fortmatic Key
-        $wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
-        $portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
-    
-        
-         ?>
-        <script>
 
-            var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
-            var fortmatic_chainid_1 = "<?php echo $fortmatic_chainid_1 ? $fortmatic_chainid_1 : '137' ?>";
-            var fortmatic_key_2 = "<?php echo $fortmatic_key_2 ?  $fortmatic_key_2 : 'pk_test_34280F77D49163DC' ?>"; 
-            var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
-            var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
-            </script>
-         <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
-        
-            <?php
-      echo do_shortcode('[connect_wallet]');
+        echo do_shortcode('[connect_wallet]');
        
-    
     } // function also_add_connect_wallet_model_inloginformCBF
 
 
@@ -321,28 +263,6 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
             
     if(is_admin())
       return;
-
-    
-      $wallet_connect_options = get_option( 'wallet_connect_option_name' ); // Array of All Options
-      $fortmatic_rpcurl_0 = $wallet_connect_options['fortmatic_rpcurl_0']; // Fortmatic rpcURL
-      $fortmatic_chainid_1 = $wallet_connect_options['fortmatic_chainid_1']; // Fortmatic chainID
-      $fortmatic_key_2 = $wallet_connect_options['fortmatic_key_2']; // Fortmatic Key
-      $wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
-      $portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
-  
-      
-       ?>
-      
-
-      <script>
-
-          var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
-          var fortmatic_chainid_1 = "<?php echo $fortmatic_chainid_1 ? $fortmatic_chainid_1 : '137' ?>";
-          var fortmatic_key_2 = "<?php echo $fortmatic_key_2 ?  $fortmatic_key_2 : 'pk_test_34280F77D49163DC' ?>"; 
-          var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
-          var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
-          </script>
-          <?php
 
         $Button_Background_Color = isset($atts['button_background_color']) ? $atts['button_background_color'] : 'green';
         $Button_Text_Color = isset($atts['button_text_color']) ? $atts['button_text_color'] : 'white';

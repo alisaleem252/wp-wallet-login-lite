@@ -46,7 +46,10 @@ class wpwlc_Page_lock {
 	}
 
 	public function add_meta_box_callback() {
-        global $post;
+        global $post,$wpdb;
+		$name='customer1';
+		$results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->users WHERE user_login = %s",$name));
+		echo '<pre>';print_r($results);echo '</pre>';
         $selected_users = get_post_meta($post->ID,'wplmc_users_access',true);
 		$selected_users = is_array($selected_users) ? $selected_users : array();
         $limit_access = get_post_meta($post->ID,'wplmc_limit_access',true);?>
