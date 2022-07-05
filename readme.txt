@@ -1,38 +1,100 @@
-=== Plugin Name: WP Wallet Login Custom Lite ===
-Contributors:	alisaleem252, mgigsix
-Requires at least: wp version 4.7
+=== Wallet Login ===
+Contributors: zinger252
+Donate link: https://gigsix.com/
+Tags: crypto, wallet, login, crypto wallet, bitcoin connect, WalletConnect, web3, Fortmatic, Torus
+Requires at least: 4.6
 Tested up to: 6.0
+Stable tag: 4.3
+Requires PHP: 5.6
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin support different Wallets e.g. walletConnect, Portis, Torus
+Allow user to login to your site using Crypto Wallet such as WalletConnect , metamask
+Coinbase Wallet
+Fortmatic
+Torus
+Portis
+Authereum
+Frame
+Bitski
+Venly
+DCent
+BurnerConnect
+MEWConnect
+Binance Chain Wallet Opera Wallet
+Sequence
+CLV Wallet
+Web3Auth
+Bitkeep Wallet
+99Starz Wallet
 
 
 == Description ==
-This plugin support different Wallets e.g. walletConnect, Portis, Torus, Formatic and Binance Chain
-The dependencies of this plugin are js_composer so called wpBakery Page Builder (version 6.0.5) 
-and Elementor (version 3.6.5)
-The plugin depends upon external plugins js_composer so called wpBakery Page Builder (version 6.0.5) http://wpbakery.com/
-and Elementor (version 3.6.5) https://elementor.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash 
-https://go.elementor.com/yt-admin-plugins/; its custom widget/ element for our plugin working like shortcode i.e. [connect_wallet]
+
+Allow user to login to your site using Crypto Wallet such as WalletConnect , metamask
+Coinbase Wallet
+Fortmatic
+Torus
+Portis
+Authereum
+Frame
+Bitski
+Venly
+DCent
+BurnerConnect
+MEWConnect
+Binance Chain Wallet Opera Wallet
+Sequence
+CLV Wallet
+Web3Auth
+Bitkeep Wallet
+99Starz Wallet
+
+= General Features =
+One Click Login.
+Crypto Address.
 
 
-== Changelog ==
-= 1.5.2 =
-* readme file updated.
-* plugin version updated.
-* un-necessory/ commented code removed
-* apply esc_*() on missing strings
-* use inline scripting function
+= Pro Features =
 
-= 1.5.1 =
-* readme file created.
-* plugin version updated and in readme.
-* un-necessory commented code removed, sanitizaing $_Post data, esc_*() and printf functions used as per needed
-  for correct html printing.
+Add more wallets
 
-= 1.5.0 =
-* more different wallets added e.g. Torus, Binance Chain
+Torus
+Portis
+Authereum
+Frame
+Bitski
+Venly
+DCent
+BurnerConnect
+MEWConnect
+Binance Chain Wallet Opera Wallet
+Sequence
+CLV Wallet
+Web3Auth
+Bitkeep Wallet
+99Starz Wallet
 
 
 
 
 
+== Installation ==
+
+This section describes how to install the plugin and get it working.
+
+e.g.
+
+1. Upload the plugin files to the `/wp-content/plugins/wallet-login` directory, or install the plugin through the WordPress plugins screen directly.
+1. Activate the plugin through the 'Plugins' screen in WordPress
+1. Use the Settings->Plugin Name screen to configure the plugin
+1. (Make your instructions match the desired user flow for activating and installing your plugin. Include any steps that might be needed for explanatory purposes)
+
+
+== Frequently Asked Questions ==
+
+= How to get started =
+
+Use the following shortcode 
+[connect_wallet]
+And place it anywhere on your site, WIDGET OR PAGE.
