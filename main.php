@@ -4,7 +4,7 @@
  * Plugin URI: https://gigsix.com/
  * Description: WP Wallet Login Custom, Login with Crypto Wallets.
  * Author: wpfixit
- * Version: 1.5.1
+ * Version: 1.5.2
  * Author URI: https://gigsix.com
  * Text Domain: wpwalletlogincustom
  * Domain Path: /languages
@@ -33,8 +33,8 @@ require_once wpwlc_PATH."/admin/page.php";
 
 
 
-    add_action( 'login_enqueue_scripts', 'wpwlc_enqueue_scriptsCBF' );
-	add_action('wp_enqueue_scripts', 'wpwlc_enqueue_scriptsCBF');
+   	add_action( 'login_enqueue_scripts', 'wpwlc_enqueue_scriptsCBF',1 );
+	add_action('wp_enqueue_scripts', 'wpwlc_enqueue_scriptsCBF',1);
 	function wpwlc_enqueue_scriptsCBF(){
 		wp_enqueue_script('web3-axios.min-JS', plugins_url('js/axios.min.js', __FILE__ ),array('jquery'));
 		wp_enqueue_script('web3-web3.min-JS', plugins_url('js/web3.min.js', __FILE__ ),array('jquery'));
@@ -47,8 +47,23 @@ require_once wpwlc_PATH."/admin/page.php";
        
 		wp_enqueue_script('web3-login-custom-JS', plugins_url('js/web3-login.js', __FILE__ ),array('jquery'));
 		wp_enqueue_script('web3-modal-custom-JS', plugins_url('js/web3-modal.js', __FILE__ ),array('jquery'));
-		//wp_enqueue_style('cfrd-salient-CSS', plugins_url('css/salient-wpbakery-addons-basic.css', __FILE__ ));
-
-        
 		
+
+		$wallet_connect_options = get_option( 'wallet_connect_option_name' ); // Array of All Options
+		$fortmatic_rpcurl_0 = $wallet_connect_options['fortmatic_rpcurl_0']; // Fortmatic rpcURL
+		$fortmatic_chainid_1 = $wallet_connect_options['fortmatic_chainid_1']; // Fortmatic chainID
+		$fortmatic_key_2 = $wallet_connect_options['fortmatic_key_2']; // Fortmatic Key
+		$wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
+		$portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
+	
+	
+		wp_add_inline_script( 'web3-modal-custom-JS','
+			var ajaxurl = "'.admin_url( 'admin-ajax.php' ).'"; 
+			var fortmatic_rpcurl_0 = "'.($fortmatic_rpcurl_0 && $fortmatic_rpcurl_0 != '' ? $fortmatic_rpcurl_0 : '').'";
+			var fortmatic_chainid_1 = "'.($fortmatic_chainid_1 && $fortmatic_chainid_1 != '' ? $fortmatic_chainid_1 : '').'";
+			var fortmatic_key_2 = "'.($fortmatic_key_2 && $fortmatic_key_2 != '' ? $fortmatic_key_2 : '').'";
+			var wallet_connect_infuraid_3 = "'.($wallet_connect_infuraid_3 && $wallet_connect_infuraid_3 != '' ? $wallet_connect_infuraid_3 : '').'";
+			var portis_id_4 = "'.($portis_id_4 && $portis_id_4 != '' ? $portis_id_4 : '').'";
+					','after');
+
 	} // function cfrd__enqueue_scriptsCBF() 

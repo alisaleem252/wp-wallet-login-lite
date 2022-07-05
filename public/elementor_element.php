@@ -147,27 +147,9 @@ if ( ! defined( 'ABSPATH' ) )
   
            $Button_Background_Color = isset($settings['Button_Background_Color']) ? $settings['Button_Background_Color'] : 'green';
            $Button_Text_Color = isset($settings['Button_Text_Color']) ? $settings['Button_Text_Color'] : 'green';
-        
-          $wallet_connect_options = get_option( 'wallet_connect_option_name' ); // Array of All Options
-          $fortmatic_rpcurl_0 = $wallet_connect_options['fortmatic_rpcurl_0']; // Fortmatic rpcURL
-          $fortmatic_chainid_1 = $wallet_connect_options['fortmatic_chainid_1']; // Fortmatic chainID
-          $fortmatic_key_2 = $wallet_connect_options['fortmatic_key_2']; // Fortmatic Key
-          $wallet_connect_infuraid_3 = $wallet_connect_options['wallet_connect_infuraid_3']; // Wallet Connect infuraId
-          $portis_id_4 = $wallet_connect_options['portis_id_4']; // Portis ID
-      
-          //ob_start();
-           ?>
+        ?>
            
-        <script>
-              var fortmatic_rpcurl_0 = "<?php echo $fortmatic_rpcurl_0 ? $fortmatic_rpcurl_0 : 'https://rpc-mainnet.maticvigil.com' ?>";
-              var fortmatic_chainid_1 = "<?php echo $fortmatic_chainid_1 ? $fortmatic_chainid_1 : '137' ?>";
-              var fortmatic_key_2 = "<?php echo $fortmatic_key_2 ?  $fortmatic_key_2 : 'pk_test_34280F77D49163DC' ?>"; 
-              var wallet_connect_infuraid_3 = "<?php echo $wallet_connect_infuraid_3 ? $wallet_connect_infuraid_3 : '8043bb2cf99347b1bfadfb233c5325c0' ?>";
-              var portis_id_4 = "<?php echo $portis_id_4 ? $portis_id_4 : 'PORTIS_ID' ?>";
-        </script>
-            <!--script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>'; </script>
-            <script src="<?php echo wpwlc_URL?>/js/web3-login.js?v=009"></script>
-              <script src="<?php echo wpwlc_URL?>/js/web3-modal.js?v=0011"></script-->
+           
     <div style="margin: 0 auto;max-width: 600px;margin-top:100px;">
         <div style="text-align:center;word-wrap:break-word;">
             <?php if(is_user_logged_in()) {
