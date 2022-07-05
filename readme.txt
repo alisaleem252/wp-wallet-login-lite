@@ -87,14 +87,14 @@ e.g.
 
 1. Upload the plugin files to the `/wp-content/plugins/wallet-login` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the Settings->Plugin Name screen to configure the plugin
-1. (Make your instructions match the desired user flow for activating and installing your plugin. Include any steps that might be needed for explanatory purposes)
+2. Use the Dashboard Wallet Connect to configure the plugin, provide all the relevant api keys.
+3. Place the provided shortcode on a page [connect_wallet].
 
 
 == Frequently Asked Questions ==
 
 = How to get started =
-
+COnfigure Wallet Connect from Dashboard Menu
 Use the following shortcode 
 [connect_wallet]
 And place it anywhere on your site, WIDGET OR PAGE.
