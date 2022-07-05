@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WP Wallet Login Custom Lite
+ * Plugin Name: Wallet Login
  * Plugin URI: https://gigsix.com/
- * Description: WP Wallet Login Custom, Login with Crypto Wallets.
- * Author: wpfixit
+ * Description: WP Wallet Login, Login with Crypto Wallets.
+ * Author: alisaleem252
  * Version: 1.5.2
  * Author URI: https://gigsix.com
  * Text Domain: wpwalletlogincustom
