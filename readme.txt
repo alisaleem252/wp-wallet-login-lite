@@ -4,7 +4,7 @@ Donate link: https://gigsix.com/
 Tags: crypto, wallet, login, crypto wallet, bitcoin connect, WalletConnect, web3, Fortmatic, Torus
 Requires at least: 4.6
 Tested up to: 6.0
-Stable tag: 4.3
+Stable tag: 1.5.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
