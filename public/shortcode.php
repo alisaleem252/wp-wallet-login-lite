@@ -17,14 +17,15 @@ wp_enqueue_script("jquery");
                 $address = get_user_meta($user->ID,'wpwlc_address',true);
                 ?>
                 <div id="loggedIn" class="user-login-msg">
-                <?php esc_html_e("Successful authentication for address:",'wpwalletlogincustom');?> <br><span id="ethAddress"><?php echo $address ?></span>
+                <?php printf('Successful authentication for address: <br /><span id="ethAddress">%s</span>',$address);?>
+                
                     <br><br>
-                <?php esc_html_e("You can set a public name for this account:",'wpwalletlogincustom');?><br>
+                <?php esc_html_e("You can set a public name for this account:",'wallet-login');?><br>
                     <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
                 </div>
             <?php } //if(is_user_logged_in()) {
                 else{?>  
-                <button type="button" onclick="userLoginOut()" id="buttonText" class="<?php echo $button_classes ?> button button-secondary"><?php esc_html_e("Connect Wallet",'wpwalletlogincustom');?></button><div><p>&nbsp;</p></div>
+                <button type="button" onclick="userLoginOut()" id="buttonText" class="<?php echo esc_attr($button_classes) ?> button button-secondary"><?php esc_html_e("Connect Wallet",'wallet-login');?></button><div><p>&nbsp;</p></div>
             <?php } // ELSE  of   if(is_user_logged_in()) {?>
         </div>
     </div>

@@ -4,12 +4,12 @@
  * Plugin URI: https://gigsix.com/
  * Description: WP Wallet Login, Login with Crypto Wallets.
  * Author: alisaleem252
- * Version: 1.5.2
+ * Version: 1.5.3
  * Author URI: https://gigsix.com
- * Text Domain: wpwalletlogincustom
+ * Text Domain: wallet-login
  * Domain Path: /languages
  *
- * @package wpwalletlogincustom
+ * @package wallet-login
  */
 define('wpwlc_URL', plugin_dir_url(__FILE__));
 define('wpwlc_PATH', dirname(__FILE__));

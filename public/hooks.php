@@ -166,7 +166,7 @@ function wpwlc_restrict_user(){
 
             echo (json_encode(["Success", $publicName]));
         } else {
-            esc_html_e("Fail",'wpwalletlogincustom');
+            esc_html_e("Fail",'wallet-login');
         }
         exit;
     }
@@ -178,7 +178,7 @@ function wpwlc_restrict_user(){
     // Check if the user is logged in
     if(!is_user_logged_in()){
         //$JWT = JWT::decode($data->JWT, $GLOBALS['JWT_secret']); 
-        esc_html_e( 'Authentication error','wpwalletlogincustom'); 
+        esc_html_e( 'Authentication error','wallet-login'); 
         exit; 
     }
     
@@ -235,20 +235,20 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
     
 
     vc_map( array(
-      'name'          => __('Connect Wallet', 'wpwalletlogincustom'),
+      'name'          => __('Connect Wallet', 'wallet-login'),
       'base'          => 'wpbakery_connect_wallet',
-      'description'  	=> __( 'Connect Wallet','wpwalletlogincustom'),
+      'description'  	=> __( 'Connect Wallet','wallet-login'),
       //'category'      => __( 'msl_txtdmn Modules', 'msl_txtdmn'),                
       'params' => array(
         array(
           'type' => 'colorpicker',
-          'heading' => esc_html__('Select Button Background Color','wpwalletlogincustom'),
+          'heading' => esc_html__('Select Button Background Color','wallet-login'),
           'param_name' => 'button_background_color',
         ),
 
         array(
             'type' => 'colorpicker',
-            'heading' => esc_html__('Select Button Text Color','wpwalletlogincustom'),
+            'heading' => esc_html__('Select Button Text Color','wallet-login'),
             'param_name' => 'button_text_color',
           ),
       ),
@@ -278,9 +278,9 @@ class WPBakeryShortCodeConnectWallet extends WPBakeryShortCode {
                 
                 ?>
                 <div id="loggedIn" class="user-login-msg">
-                <?php esc_html_e("Successful authentication for address:",'wpwalletlogincustom');?><br><span id="ethAddress"><?php echo $address ?></span>
+                <?php printf('Successful authentication for address: <br /><span id="ethAddress">%s</span>',$address);?>
                     <br><br>
-                    <?php esc_html_e("You can set a public name for this account:",'wpwalletlogincustom');?><br>
+                    <?php esc_html_e("You can set a public name for this account:",'wallet-login');?><br>
                     <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
                 </div>
             <?php } //if(is_user_logged_in()) {

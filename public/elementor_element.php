@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) )
        * @return string Widget title.
        */
       public function get_title() {
-          return esc_html__( 'Connect Wallet Widget', 'wpwalletlogincustom' );
+          return esc_html__( 'Connect Wallet Widget', 'wallet-login' );
       }
   
       /**
@@ -102,7 +102,7 @@ if ( ! defined( 'ABSPATH' ) )
           $this->start_controls_section(
               'content_section',
               [
-                  'label' => esc_html__( 'Content', 'wpwalletlogincustom' ),
+                  'label' => esc_html__( 'Content', 'wallet-login' ),
                   'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
               ]
           );
@@ -110,7 +110,7 @@ if ( ! defined( 'ABSPATH' ) )
           $this->add_control(
               'Button_Background_Color',
               [
-                  'label' => esc_html__( 'Button Background Color', 'wpwalletlogincustom' ),
+                  'label' => esc_html__( 'Button Background Color', 'wallet-login' ),
                   'type' => \Elementor\Controls_Manager::COLOR,
                   'label_block' => true,
               ]
@@ -120,7 +120,7 @@ if ( ! defined( 'ABSPATH' ) )
           $this->add_control(
             'Button_Text_Color',
             [
-                'label' => esc_html__( 'Button Text Color', 'wpwalletlogincustom' ),
+                'label' => esc_html__( 'Button Text Color', 'wallet-login' ),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'label_block' => true,
             ]
@@ -158,9 +158,10 @@ if ( ! defined( 'ABSPATH' ) )
                 
                 ?>
                 <div id="loggedIn" class="user-login-msg">
-                <?php esc_html_e("Successful authentication for address:",'wpwalletlogincustom');?><br><span id="ethAddress"><?php echo $address ?></span>
+                <?php printf('Successful authentication for address: <br /><span id="ethAddress">%s</span>',$address);?>
+                
                     <br><br>
-                    <?php esc_html_e("You can set a public name for this account:",'wpwalletlogincustom');?><br>
+                    <?php esc_html_e("You can set a public name for this account:",'wallet-login');?><br>
                     <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
                 </div>
             <?php } //if(is_user_logged_in()) {

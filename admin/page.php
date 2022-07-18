@@ -8,7 +8,7 @@
  * Select Users = get_post_meta( get_the_ID(), 'wpwlcselect-users', true )
  */
 class wpwlc_Page_lock {
-	private $config = '{"title":"Page Access","description":"Select Users to allow them to access this page.","prefix":"wpwlc","domain":"wpwalletlogincustom","class_name":"wpwlc_Page_lock","post-type":["page"],"context":"normal","priority":"default","fields":[{"type":"select","label":"Select Users","options":"123 : username1\r\n234 : username2\r\n345 : username3","id":"wpwlcselect-users"}]}';
+	private $config = '{"title":"Page Access","description":"Select Users to allow them to access this page.","prefix":"wpwlc","domain":"wallet-login","class_name":"wpwlc_Page_lock","post-type":["page"],"context":"normal","priority":"default","fields":[{"type":"select","label":"Select Users","options":"123 : username1\r\n234 : username2\r\n345 : username3","id":"wpwlcselect-users"}]}';
 
 	public function __construct() {
 		$this->config = json_decode( $this->config, true );
@@ -50,7 +50,7 @@ class wpwlc_Page_lock {
         $selected_users = get_post_meta($post->ID,'wplmc_users_access',true);
 		$selected_users = is_array($selected_users) ? $selected_users : array();
         $limit_access = get_post_meta($post->ID,'wplmc_limit_access',true);?>
-        <p><input type="checkbox" value="1" <?php echo ($limit_access == '1' ? 'checked' : '')?> name="wplmc_limit_access" /> <?php esc_html_e("Restrict Page Access",'wpwalletlogincustom')?></p>
+        <p><input type="checkbox" value="1" <?php echo ($limit_access == '1' ? 'checked' : '')?> name="wplmc_limit_access" /> <?php esc_html_e("Restrict Page Access",'wallet-login')?></p>
         <div class="rwp-description" style="height: 200px;overflow: scroll;"><?php echo $this->config['description'] ?>
         <?php
         $users = get_users();
