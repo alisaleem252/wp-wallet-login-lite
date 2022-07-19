@@ -70,8 +70,8 @@ class WalletConnect {
 		$this->wallet_connect_options = get_option( 'wallet_connect_option_name' ); ?>
 
 		<div class="wrap">
-			<h2>Wallet Connect</h2>
-			<p>Wallet Connect Configuration</p>
+			<h2><?php esc_html_e("Wallet Connect",'wallet-login');?></h2>
+			<p><?php esc_html_e("Wallet Connect Configuration",'wallet-login');?></p>
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">

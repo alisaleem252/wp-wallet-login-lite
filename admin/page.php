@@ -51,12 +51,14 @@ class wpwlc_Page_lock {
 		$selected_users = is_array($selected_users) ? $selected_users : array();
         $limit_access = get_post_meta($post->ID,'wplmc_limit_access',true);?>
         <p><input type="checkbox" value="1" <?php echo ($limit_access == '1' ? 'checked' : '')?> name="wplmc_limit_access" /> <?php esc_html_e("Restrict Page Access",'wallet-login')?></p>
-        <div class="rwp-description" style="height: 200px;overflow: scroll;"><?php echo $this->config['description'] ?>
-        <?php
+        <?php printf('<div class="rwp-description" style="height: 200px;overflow: scroll;">%s',$this->config['description']);
+        
         $users = get_users();
-        foreach($users as $user){?>
-            <p><input name="wplmc_users_access[]" type="checkbox" value="<?php echo $user->ID ?>" <?php echo (in_array($user->ID,$selected_users) ? 'checked' : '') ?> /> <?php echo $user->data->user_nicename ?></p>
-    <?php } ?>
+        foreach($users as $user){
+			$checkedstatus = (in_array($user->ID,$selected_users) ? 'checked' : '');
+            printf('<p><input name="wplmc_users_access[]" type="checkbox" value="%s" %s /> %s</p>',$user->ID,$checkedstatus,$user->data->user_nicename);
+    	} 
+		?>
     	</div>
 	<?php
 	}
