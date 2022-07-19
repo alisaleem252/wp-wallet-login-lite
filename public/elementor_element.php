@@ -165,9 +165,9 @@ if ( ! defined( 'ABSPATH' ) )
                     <input type="text" placeholder="Public name" id="updatePublicName" onfocusout="setPublicName()" style="width:190px;">
                 </div>
             <?php } //if(is_user_logged_in()) {
-                else{?>  
-                <button type="button" onclick="userLoginOut()" id="buttonText" class="button" style="background-color:<?php echo $Button_Background_Color ?>;color:<?php echo $Button_Text_Color ?>;">Connect Wallet</button><div><p>&nbsp;</p></div>
-            <?php } // ELSE  of   if(is_user_logged_in()) {?>
+                else
+                printf('<button type="button" onclick="userLoginOut()" id="buttonText" class="button" style="background-color:%s;color:%s">'.__("Connect Wallet",'wallet-login').'</button><div><p>&nbsp;</p></div>',$Button_Background_Color,$Button_Text_Color);
+                ?>
         </div>
     </div>
     
