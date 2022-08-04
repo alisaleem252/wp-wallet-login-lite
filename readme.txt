@@ -3,52 +3,26 @@ Contributors: zinger252
 Donate link: https://gigsix.com/
 Tags: crypto, wallet, login, crypto wallet, bitcoin connect, WalletConnect, web3, Fortmatic, Torus
 Requires at least: 4.6
-Tested up to: 6.0
-Stable tag: 1.5.4
+Tested up to: 6.0.1
+Stable tag: 1.5.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Allow user to login to your site using Crypto Wallet such as WalletConnect , metamask
-Coinbase Wallet
+Allow user to login to your site using Crypto Wallet such as WalletConnect,
 Fortmatic
 Torus
 Portis
-Authereum
-Frame
-Bitski
-Venly
-DCent
-BurnerConnect
-MEWConnect
 Binance Chain Wallet Opera Wallet
-Sequence
-CLV Wallet
-Web3Auth
-Bitkeep Wallet
-99Starz Wallet
-
 
 == Description ==
 
-Allow user to login to your site using Crypto Wallet such as WalletConnect , metamask
-Coinbase Wallet
+Allow user to login to your site using Crypto Wallet such as WalletConnect, 
 Fortmatic
 Torus
 Portis
-Authereum
-Frame
-Bitski
-Venly
-DCent
-BurnerConnect
-MEWConnect
 Binance Chain Wallet Opera Wallet
-Sequence
-CLV Wallet
-Web3Auth
-Bitkeep Wallet
-99Starz Wallet
+
 
 = General Features =
 One Click Login.
@@ -57,10 +31,9 @@ Crypto Address.
 
 = Pro Features =
 
-Add more wallets
-
-Torus
-Portis
+Add More Wallets
+Opera Wallet
+Boltx
 Authereum
 Frame
 Bitski
@@ -68,15 +41,13 @@ Venly
 DCent
 BurnerConnect
 MEWConnect
-Binance Chain Wallet Opera Wallet
+metamask
+Coinbase Wallet
 Sequence
 CLV Wallet
 Web3Auth
 Bitkeep Wallet
 99Starz Wallet
-
-
-
 
 
 == Installation ==

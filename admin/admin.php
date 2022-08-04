@@ -52,6 +52,7 @@ class WalletConnect {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'wallet_connect_add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'wallet_connect_page_init' ) );
+		
 	}
 
 	public function wallet_connect_add_plugin_page() {
@@ -148,10 +149,11 @@ class WalletConnect {
 			'wallet-connect-admin', // page
 			'wallet_connect_setting_section' // section
 		);
+		do_action("wallet_connect_setting_fields");
 	}
 
 	public function wallet_connect_sanitize($input) {
-		$sanitary_values = array();
+		$sanitary_values = $input;
 		if ( isset( $input['fortmatic_rpcurl_0'] ) ) {
 			$sanitary_values['fortmatic_rpcurl_0'] = sanitize_text_field( $input['fortmatic_rpcurl_0'] );
 		}
@@ -178,13 +180,16 @@ class WalletConnect {
 			$sanitary_values['button_classes_5'] = sanitize_text_field( $input['button_classes_5'] );
 		}
 
-		return $sanitary_values;
+		
+		return apply_filters("wallet_connect_setting_fields_sanitizing",$sanitary_values);
 	}
 
 	public function wallet_connect_section_info() {
-		
+		do_action("wallet_connect_setting_fields_callback");
+
 	}
 
+	
 	public function fortmatic_rpcurl_0_callback() {
 		printf(
 			'<input class="regular-text" type="text" name="wallet_connect_option_name[fortmatic_rpcurl_0]" id="fortmatic_rpcurl_0" value="%s">',
@@ -227,6 +232,7 @@ class WalletConnect {
 		);
 	}
 
+	
 }
 if ( is_admin() )
 	$wallet_connect = new WalletConnect();
