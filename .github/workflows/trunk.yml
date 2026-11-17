@@ -1,0 +1,41 @@
+name: Deploy trunk to WordPress.org
+
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '.github/**'
+      - '.wordpress-org/**'
+      - 'README.md'
+
+concurrency:
+  group: wporg-svn
+  cancel-in-progress: false
+
+jobs:
+  trunk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install subversion and rsync
+        run: sudo apt-get update && sudo apt-get install -y subversion rsync
+
+      - name: Sync to SVN trunk
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          set -e
+          svn checkout --non-interactive https://plugins.svn.wordpress.org/wallet-login/trunk trunk
+          rsync -rc --delete --exclude=.svn --exclude-from=.distignore ./ trunk/
+          cd trunk
+          svn add --force . > /dev/null
+          svn status | grep '^!' | sed 's/^! *//' | xargs -r -d '\n' svn rm
+          if [ -z "$(svn status)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          svn commit -m "Update trunk from GitHub ${GITHUB_SHA::7}" \
+            --username "$SVN_USERNAME" --password "$SVN_PASSWORD" \
+            --non-interactive --no-auth-cache

@@ -1,0 +1,25 @@
+name: Update WordPress.org assets
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.wordpress-org/**'
+
+concurrency:
+  group: wporg-svn
+  cancel-in-progress: false
+
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: WordPress.org asset update
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: wallet-login
+          IGNORE_OTHER_FILES: true
