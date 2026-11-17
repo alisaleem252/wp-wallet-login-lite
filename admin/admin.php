@@ -68,7 +68,26 @@ class WalletConnect {
 
 	public function wallet_connect_create_admin_page() {
 		$this->wallet_connect_options = get_option( 'wallet_connect_option_name' ); ?>
-
+			<div class="wallet-connect-donate">
+				<h3><?php esc_html_e("Support This Plugin", 'wallet-login'); ?></h3>
+				<p><?php esc_html_e("If you find this plugin useful, consider buying me a coffee!", 'wallet-login'); ?></p>
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+					<input type="hidden" name="cmd" value="_donations" />
+					<input type="hidden" name="business" value="payuk@webostock.com" />
+					<input type="hidden" name="currency_code" value="USD" />
+					<input type="hidden" name="item_name" value="Buy me a coffee - Wallet Connect Plugin" />
+					<input type="submit" class="button button-primary" value="<?php esc_attr_e('Buy Me a Coffee', 'wallet-login'); ?>" />
+				</form>
+			</div>
+			<style>
+			.wallet-connect-donate {
+				margin-top: 30px;
+				padding: 20px;
+				background: #f9f9f9;
+				border-left: 4px solid #0073aa;
+				box-shadow: 0 1px 1px rgba(0,0,0,.04);
+			}
+			</style>
 		<div class="wrap">
 			<h2><?php esc_html_e("Wallet Connect",'wallet-login');?></h2>
 			<p><?php esc_html_e("Wallet Connect Configuration",'wallet-login');?></p>
